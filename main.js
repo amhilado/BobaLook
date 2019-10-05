@@ -19,7 +19,7 @@ async function geocode2(loc) {
         const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
             params: {
                 address: location,
-                key: 'AIzaSyCW98AO9A0h3LdKRi4kli0oZA6o2pmmviw'
+                key: 'AIzaSyDoW4v0uN_WxxY_A7loojVlWHBjpq048Cw'
             }
         });
         console.log(response);
@@ -36,9 +36,8 @@ async function geocode2(loc) {
     }
 }
 
-document.querySelector(".searchBar").addEventListener('click', () => {
+document.querySelector(".search-btn").addEventListener('click', () => {
     var data1 = document.querySelector("input").value;
-    geocode2(data1); //spits out coordinates of which the search revolves
-    
+    geocode2(data1); //spits out coordinates of which the search revolves   
 }
 );

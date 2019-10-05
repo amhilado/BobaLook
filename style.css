@@ -34,6 +34,8 @@ hr {
     overflow: hidden;
 }
 
+
+
 .searchResult {
     padding: 3% 0;
 }
@@ -50,3 +52,12 @@ input[type=text] {
     border: none;
     font-size: 17px;
   }
+
+  i {
+    position: absolute;
+    cursor: pointer;
+    color: black;
+    display: flex;
+    justify-content: center;
+    margin-left: 18vw;
+} 
