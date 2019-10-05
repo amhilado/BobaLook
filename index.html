@@ -11,6 +11,7 @@
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/6016060e75.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="home.css">
 
@@ -18,7 +19,6 @@
 
 <body>
     <div class="map container-fluid">
-        <h1>MAP IS GOING TO GO HERE!!</h1>
     </div>
     <div class="search">
         <div class="row justify-content-center">
@@ -32,7 +32,10 @@
         </div>
     </div>
 
+    <script src="main.js"></script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW98AO9A0h3LdKRi4kli0oZA6o2pmmviw&callback=initMap&libraries=places"
+    async defer></script>
 </body>
 
 </html>
