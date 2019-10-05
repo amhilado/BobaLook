@@ -13,20 +13,22 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="home.css">
 
 </head>
 
 <body>
-    <div class="map container-fluid">
-    </div>
-    <div class="search">
+    <div id="mapWrap">
+        <div class="map container-fluid">
+            <script src="main.js"></script>
+        </div>
         <div class="searchBar row justify-content-center">
             <div class="col-lg-6">
-                <input type="text" placeholder="Search">
+                <input type="text" placeholder="&#xf002;  Search">
             </div>
         </div>
-        <div class="row justify-content-center">
+    </div>
+    <div class="search">
+        <div class="searchResult row justify-content-center">
             <div class="col-lg-2 text-center">
                 <img src="https://via.placeholder.com/150">
             </div>
@@ -35,9 +37,59 @@
                 <p>Store Hours</p>
             </div>
         </div>
+        <hr>
+        <div class="searchResult row justify-content-center">
+            <div class="col-lg-2 text-center">
+                <img src="https://via.placeholder.com/150">
+            </div>
+            <div class="col-lg-4">
+                <h1>Gong Cha</h1>
+                <p>Store Hours</p>
+            </div>
+        </div>
+        <hr>
+        <div class="searchResult row justify-content-center">
+            <div class="col-lg-2 text-center">
+                <img src="https://via.placeholder.com/150">
+            </div>
+            <div class="col-lg-4">
+                <h1>Ding Tea</h1>
+                <p>Store Hours</p>
+            </div>
+        </div>
+        <hr>
+        <div class="searchResult row justify-content-center">
+            <div class="col-lg-2 text-center">
+                <img src="https://via.placeholder.com/150">
+            </div>
+            <div class="col-lg-4">
+                <h1>7Leaves</h1>
+                <p>Store Hours</p>
+            </div>
+        </div>
+        <hr>
+        <div class="searchResult row justify-content-center">
+            <div class="col-lg-2 text-center">
+                <img src="https://via.placeholder.com/150">
+            </div>
+            <div class="col-lg-4">
+                <h1>Ten Ren's Teahouse</h1>
+                <p>Store Hours</p>
+            </div>
+        </div>
+        <hr>
+        <div class="searchResult row justify-content-center">
+            <div class="col-lg-2 text-center">
+                <img src="https://via.placeholder.com/150">
+            </div>
+            <div class="col-lg-4">
+                <h1>Half & Half</h1>
+                <p>Store Hours</p>
+            </div>
+        </div>
     </div>
 
-    <script src="main.js"></script>
+
 
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW98AO9A0h3LdKRi4kli0oZA6o2pmmviw&callback=initMap&libraries=places"
