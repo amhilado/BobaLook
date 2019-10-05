@@ -36,3 +36,9 @@ async function geocode2(loc) {
     }
 }
 
+document.querySelector(".search-btn").addEventListener('click', () => {
+    var data1 = document.querySelector("input").value;
+    geocode2(data1); //spits out coordinates of which the search revolves
+    
+}
+);
