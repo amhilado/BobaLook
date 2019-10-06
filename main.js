@@ -46,8 +46,54 @@ function getMap (x,y,r) {
         map: map,
         address: initAddress
     });
+
+    getBoba(location);
+
 }
 
+function getBoba (boba) {
+    var bobaCoord = new google.maps.LatLng(boba.lat, boba.long);
+    
+    var request = {
+        location: bobaCoord,
+        radius: '2000',
+        type: ['cafe']
+    };
+
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callback);
+}
+
+function callback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        console.log(results);
+        for (var i = 0; i < results.length; i++) {
+            console.log(results[i].name);
+        }
+
+    //    for (var i = 0; i < results.length; i++)
+    //    {
+    //        var place = results[i];
+    //        let content = `<h3>${place.name}</h3>`;
+
+    //        var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+
+    //        var marker = new google.maps.Marker ({
+    //             position: place.geometry.location,
+    //             map: map,
+    //             title: place.name,
+    //             icon: iconBase + 'parks.png'
+    //        });
+
+    //        var infowindow = new google.maps.InfoWindow({
+    //            content: content
+    //        });
+
+    //        bindInfoWindow(marker, map, infowindow,content);
+    //        marker.setMap(map);
+    //    }  
+    }
+  }
 
 document.querySelector(".search-btn").addEventListener('click', () => {
     var userLoc = document.querySelector("input").value;
