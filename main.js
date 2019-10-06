@@ -47,7 +47,7 @@ function getMap (x,y,r) {
         address: initAddress
     });
 
-    getBoba(location);
+    //getBoba(location);
 
 }
 
@@ -95,34 +95,42 @@ function callback(results, status) {
     }
   }
 
-
-  var settings = {
+function yelpReq(yelpLoc) {
+  
+    var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=bubble%20tea&location=9321%20Sabre%20Lane",
+    "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=bubble%20tea&location=${yelpLoc}`,
     "method": "GET",
     "headers": {
       "Authorization": "Bearer 7BnZn_6SeOXxlAE8wuqRWykTeflmckkpnRlMazfuWmuG28AO-zdmTkkv09UtlZelIIMiinXy02RFHz5SCczCJzk-jIfo7TVtn3g6wrRUI0f6tfzODCz5c5UnlG6ZXXYx",
-      "User-Agent": "PostmanRuntime/7.17.1",
       "Accept": "*/*",
       "Cache-Control": "no-cache",
       "Postman-Token": "3c3535af-c875-4644-81cd-af65e26e0fe2,57d58b15-7756-49d4-9181-c4e00f578af8",
-      "Host": "api.yelp.com",
-      "Accept-Encoding": "gzip, deflate",
-      "Connection": "keep-alive",
       "cache-control": "no-cache"
     }
   }
 
-  function yelpReq() {
+  
     $.ajax(settings).done(function (response) {
         console.log(response);
       });
-  }
+
+}
   
 document.querySelector(".search-btn").addEventListener('click', () => {
     var userLoc = document.querySelector("input").value;
     geoCode(userLoc);
-    yelpReq();
+    var yelpInput = userLoc.replace(/ /g, "%20")
+    yelpReq(yelpInput);
 }
 );
+
+//algo that converts an address into a url string
+/**
+ * 9321 Sabre Lane -> 9321%20Sabre%20Lane
+ * 
+ * if/else statement that converts spaces in input to %20
+ */
+
+
