@@ -32,11 +32,9 @@ async function geoCode(gloc, yLoc) {
         });
         
         //console.log(response);
-        //console.log(responseYelp);
         console.log(resYelp.data.businesses);
         var lat = resGmaps.data.results[0].geometry.location.lat;
         var lng = resGmaps.data.results[0].geometry.location.lng;
-
         await getMap(lat, lng, respGmaps, resYelp );
     
     } catch (error) {
