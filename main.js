@@ -33,7 +33,7 @@ async function geoCode(gloc, yLoc) {
         
         //console.log(response);
         //console.log(responseYelp);
-        console.log(responseYelp.data.businesses);
+        console.log(resYelp.data.businesses);
         var lat = resGmaps.data.results[0].geometry.location.lat;
         var lng = resGmaps.data.results[0].geometry.location.lng;
 
