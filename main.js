@@ -18,7 +18,7 @@ async function geoCode(gloc, yLoc) {
         var googeloc = gloc;
         var yelpLoc = yLoc;
         
-        const respGmaps = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+        const resGmaps = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
             params: {
                 address: googeloc,
                 key: 'AIzaSyDoW4v0uN_WxxY_A7loojVlWHBjpq048Cw'
@@ -35,7 +35,7 @@ async function geoCode(gloc, yLoc) {
         console.log(resYelp.data.businesses);
         var lat = resGmaps.data.results[0].geometry.location.lat;
         var lng = resGmaps.data.results[0].geometry.location.lng;
-        await getMap(lat, lng, respGmaps, resYelp );
+        await getMap(lat, lng, resGmaps, resYelp );
     
     } catch (error) {
         console.log(error);
