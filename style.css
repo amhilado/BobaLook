@@ -34,8 +34,6 @@ hr {
     overflow: hidden;
 }
 
-
-
 .searchResult {
     padding: 3% 0;
 }
@@ -60,4 +58,5 @@ input[type=text] {
     display: flex;
     justify-content: center;
     margin-left: 18vw;
+    margin-top: -10px;
 } 
