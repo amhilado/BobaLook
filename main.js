@@ -12,15 +12,15 @@ function initMap () {
     var marker = new google.maps.Marker({ position: loc, map: map});
 }
 
-async function geoCode(gloc, yLoc) {
+async function geoCode(gLoc, yLoc) {
 
     try {
-        var googeloc = gloc;
+        var googeLoc = gLoc;
         var yelpLoc = yLoc;
         
         const resGmaps = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
             params: {
-                address: googeloc,
+                address: googeLoc,
                 key: 'AIzaSyDoW4v0uN_WxxY_A7loojVlWHBjpq048Cw'
             }
         });
@@ -32,11 +32,13 @@ async function geoCode(gloc, yLoc) {
         });
         
         //console.log(response);
-        console.log(resYelp.data.businesses);
+        //console.log(resYelp.data.businesses);
         var lat = resGmaps.data.results[0].geometry.location.lat;
         var lng = resGmaps.data.results[0].geometry.location.lng;
-        await getMap(lat, lng, resGmaps, resYelp );
-    
+        var yelpData = resYelp.data.businesses;
+        console.log(yelpData);
+        await getMap(lat, lng, resGmaps);
+        await placeBobaMarkers(yelpData);
     } catch (error) {
         console.log(error);
     }
@@ -56,30 +58,52 @@ function getMap (x,y,r) {
         map: map,
         address: initAddress
     });
-
-    //getBoba(location);
-
 }
 
-function getBoba (boba) {
-    var bobaCoord = new google.maps.LatLng(boba.lat, boba.long);
+function placeBobaMarkers (boba) {
+    //debugger;
+    for (var i = 0; i < boba.length; i++) 
+    {
+        var place = boba[i];
+        var latlng = {lat: boba[i].coordinates.latitude, lng: boba[i].coordinates.longitude};
+        let content = `<h3>${place.name}</h3>`
+        var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+
+        var marker = new google.maps.Marker ({
+            position: latlng,
+            map: map,
+            title: place.name,
+            icon: iconBase + 'poi.png'
+        });
+
+        var infowindow =  new google.maps.InfoWindow({
+            content: content
+        });
+
+        bindInfoWindow(marker, map, infowindow, content);
+        marker.setMap(map);
+
+    }
+
+
+//     var bobaCoord = new google.maps.LatLng(boba.lat, boba.long);
     
-    var request = {
-        location: bobaCoord,
-        radius: '2000',
-        type: ['cafe']
-    };
+//     var request = {
+//         location: bobaCoord,
+//         radius: '2000',
+//         type: ['cafe']
+//     };
 
-    var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
-}
+//     var service = new google.maps.places.PlacesService(map);
+//     service.nearbySearch(request, callback);
+// }
 
-function callback(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log(results);
-        for (var i = 0; i < results.length; i++) {
-            console.log(results[i].name);
-        }
+// function callback(results, status) {
+//     if (status == google.maps.places.PlacesServiceStatus.OK) {
+//         console.log(results);
+//         for (var i = 0; i < results.length; i++) {
+//             console.log(results[i].name);
+//         }
 
     //    for (var i = 0; i < results.length; i++)
     //    {
@@ -103,30 +127,14 @@ function callback(results, status) {
     //        marker.setMap(map);
     //    }  
     }
-  }
 
-// function yelpReq(yelpLocate) {
-  
-//     var settings = {
-//     "async": true,
-//     "crossDomain": true,
-//     "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=bubble%20tea&location=${yelpLocate}`,
-//     "method": "GET",
-//     "headers": {
-//       "Authorization": "Bearer 7BnZn_6SeOXxlAE8wuqRWykTeflmckkpnRlMazfuWmuG28AO-zdmTkkv09UtlZelIIMiinXy02RFHz5SCczCJzk-jIfo7TVtn3g6wrRUI0f6tfzODCz5c5UnlG6ZXXYx",
-//       "Accept": "*/*",
-//       "Cache-Control": "no-cache",
-//       "Postman-Token": "3c3535af-c875-4644-81cd-af65e26e0fe2,57d58b15-7756-49d4-9181-c4e00f578af8",
-//       "cache-control": "no-cache"
-//     }
-//   }
+    function bindInfoWindow(marker, map, infowindow, html) {
+        marker.addListener('click', function() {
+            infowindow.setContent(html);
+            infowindow.open(map, this);
+        });
+    }
 
-  
-//     $.ajax(settings).done(function (response) {
-//         console.log(response);
-//       });
-
-// }
   
 document.querySelector(".search-btn").addEventListener('click', () => {
     var userLoc = document.querySelector("input").value;
