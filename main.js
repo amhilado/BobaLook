@@ -12,20 +12,32 @@ function initMap () {
     var marker = new google.maps.Marker({ position: loc, map: map});
 }
 
-async function geoCode(loc) {
+async function geoCode(gloc, yLoc) {
 
     try {
-        var location = loc;
-        const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+        var googeloc = gloc;
+        var yelpLoc = yLoc;
+        
+        const respGmaps = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
             params: {
-                address: location,
+                address: googeloc,
                 key: 'AIzaSyDoW4v0uN_WxxY_A7loojVlWHBjpq048Cw'
             }
         });
+
+        const resYelp = await axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=bubble%20tea&location=${yelpLoc}`, {
+            headers: {
+                Authorization: `Bearer 7BnZn_6SeOXxlAE8wuqRWykTeflmckkpnRlMazfuWmuG28AO-zdmTkkv09UtlZelIIMiinXy02RFHz5SCczCJzk-jIfo7TVtn3g6wrRUI0f6tfzODCz5c5UnlG6ZXXYx`
+            }
+        });
+        
         //console.log(response);
-        var lat = response.data.results[0].geometry.location.lat;
-        var lng = response.data.results[0].geometry.location.lng;
-        await getMap(lat, lng, response);
+        //console.log(responseYelp);
+        console.log(responseYelp.data.businesses);
+        var lat = resGmaps.data.results[0].geometry.location.lat;
+        var lng = resGmaps.data.results[0].geometry.location.lng;
+
+        await getMap(lat, lng, respGmaps, resYelp );
     
     } catch (error) {
         console.log(error);
@@ -95,42 +107,37 @@ function callback(results, status) {
     }
   }
 
-function yelpReq(yelpLoc) {
+// function yelpReq(yelpLocate) {
   
-    var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=bubble%20tea&location=${yelpLoc}`,
-    "method": "GET",
-    "headers": {
-      "Authorization": "Bearer 7BnZn_6SeOXxlAE8wuqRWykTeflmckkpnRlMazfuWmuG28AO-zdmTkkv09UtlZelIIMiinXy02RFHz5SCczCJzk-jIfo7TVtn3g6wrRUI0f6tfzODCz5c5UnlG6ZXXYx",
-      "Accept": "*/*",
-      "Cache-Control": "no-cache",
-      "Postman-Token": "3c3535af-c875-4644-81cd-af65e26e0fe2,57d58b15-7756-49d4-9181-c4e00f578af8",
-      "cache-control": "no-cache"
-    }
-  }
+//     var settings = {
+//     "async": true,
+//     "crossDomain": true,
+//     "url": `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=bubble%20tea&location=${yelpLocate}`,
+//     "method": "GET",
+//     "headers": {
+//       "Authorization": "Bearer 7BnZn_6SeOXxlAE8wuqRWykTeflmckkpnRlMazfuWmuG28AO-zdmTkkv09UtlZelIIMiinXy02RFHz5SCczCJzk-jIfo7TVtn3g6wrRUI0f6tfzODCz5c5UnlG6ZXXYx",
+//       "Accept": "*/*",
+//       "Cache-Control": "no-cache",
+//       "Postman-Token": "3c3535af-c875-4644-81cd-af65e26e0fe2,57d58b15-7756-49d4-9181-c4e00f578af8",
+//       "cache-control": "no-cache"
+//     }
+//   }
 
   
-    $.ajax(settings).done(function (response) {
-        console.log(response);
-      });
+//     $.ajax(settings).done(function (response) {
+//         console.log(response);
+//       });
 
-}
+// }
   
 document.querySelector(".search-btn").addEventListener('click', () => {
     var userLoc = document.querySelector("input").value;
-    geoCode(userLoc);
     var yelpInput = userLoc.replace(/ /g, "%20")
-    yelpReq(yelpInput);
+    geoCode(userLoc, yelpInput);
+    
 }
 );
 
-//algo that converts an address into a url string
-/**
- * 9321 Sabre Lane -> 9321%20Sabre%20Lane
- * 
- * if/else statement that converts spaces in input to %20
- */
+
 
 
